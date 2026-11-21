@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,39 +7,34 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --yellow: #ffd600;
-    --yellow-dark: #e6bd00;
-    --black: #090909;
-    --card: #141414;
-    --card-light: #1d1d1d;
-    --white: #ffffff;
-    --gray: #999999;
-    --border: rgba(255,255,255,0.08);
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Cairo', sans-serif;
-    background: var(--black);
-    color: var(--white);
+:root {
+    --yellow: #ffd600;
+    --black: #080808;
+    --dark: #111111;
+    --card: #171717;
+    --white: #ffffff;
+    --gray: #a1a1a1;
 }
 
-html {
-    scroll-behavior: smooth;
+body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
 }
 
 a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 
 button {
@@ -48,228 +42,133 @@ button {
     cursor: pointer;
 }
 
-.container {
-    width: min(1200px, 92%);
-    margin: auto;
-}
-
 /* HEADER */
 
-.header {
+header {
+    background: #0c0c0c;
+    border-bottom: 1px solid #252525;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    background: rgba(9,9,9,0.96);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border);
+    z-index: 100;
 }
 
-.header-inner {
-    min-height: 75px;
+.navbar {
+    max-width: 1300px;
+    margin: auto;
+    padding: 18px 25px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    align-items: center;
 }
 
 .logo {
     font-size: 32px;
     font-weight: 900;
-    color: var(--white);
-    letter-spacing: -1px;
+    color: var(--yellow);
+    letter-spacing: 1px;
 }
 
 .logo span {
-    color: var(--yellow);
-}
-
-.nav {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-}
-
-.nav a {
-    color: #bcbcbc;
-    font-size: 14px;
-    transition: .3s;
-}
-
-.nav a:hover {
-    color: var(--yellow);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.icon-btn {
-    background: #171717;
-    border: 1px solid var(--border);
     color: white;
-    padding: 10px 14px;
-    border-radius: 12px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #ddd;
     transition: .3s;
 }
 
-.icon-btn:hover {
+.nav-links a:hover {
+    color: var(--yellow);
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-btn {
+    border: 1px solid #333;
+    background: #161616;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.nav-btn:hover {
     border-color: var(--yellow);
     color: var(--yellow);
 }
 
 .cart-btn {
-    position: relative;
-}
-
-.cart-count {
     background: var(--yellow);
     color: black;
-    font-size: 11px;
-    font-weight: 900;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 5px;
-}
-
-.mobile-menu {
-    display: none;
-}
-
-/* SEARCH */
-
-.search-box {
-    display: none;
-    padding: 15px 0;
-    border-top: 1px solid var(--border);
-}
-
-.search-box.active {
-    display: block;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 13px 16px;
-    border-radius: 12px;
-    background: #181818;
-    border: 1px solid var(--border);
-    color: white;
-    outline: none;
-    font-family: inherit;
-}
-
-.search-box input:focus {
-    border-color: var(--yellow);
+    font-weight: 800;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
 }
 
 /* HERO */
 
 .hero {
-    padding: 35px 0 25px;
+    max-width: 1300px;
+    margin: 30px auto;
+    padding: 0 25px;
 }
 
 .hero-image {
-    position: relative;
     width: 100%;
+    border-radius: 20px;
     overflow: hidden;
-    border-radius: 22px;
+    position: relative;
     background: #111;
-    border: 1px solid rgba(255,215,0,0.15);
-    box-shadow: 0 0 35px rgba(255,214,0,0.05);
+    border: 1px solid #252525;
 }
 
 .hero-image img {
     width: 100%;
     display: block;
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(0,0,0,.75),
-        transparent 70%
-    );
-    pointer-events: none;
-}
-
-.hero-content {
-    position: absolute;
-    top: 50%;
-    right: 6%;
-    transform: translateY(-50%);
-    max-width: 450px;
-}
-
-.hero-content h1 {
-    font-size: clamp(26px, 4vw, 55px);
-    font-weight: 900;
-    line-height: 1.3;
-}
-
-.hero-content h1 span {
-    color: var(--yellow);
-}
-
-.hero-content p {
-    color: #d1d1d1;
-    margin-top: 15px;
-    font-size: 15px;
-}
-
-.hero-btn {
-    display: inline-block;
-    margin-top: 25px;
-    background: var(--yellow);
-    color: #000;
-    padding: 12px 25px;
-    border-radius: 10px;
-    font-weight: 900;
-    transition: .3s;
-}
-
-.hero-btn:hover {
-    background: white;
-    transform: translateY(-3px);
+    object-fit: cover;
 }
 
 /* FEATURES */
 
 .features {
+    max-width: 1300px;
+    margin: 30px auto;
+    padding: 0 25px;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    margin: 25px 0 55px;
 }
 
 .feature {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #141414;
+    border: 1px solid #242424;
     border-radius: 14px;
-    padding: 20px 15px;
+    padding: 20px;
     text-align: center;
     transition: .3s;
 }
 
 .feature:hover {
-    border-color: rgba(255,214,0,.4);
-    transform: translateY(-4px);
+    border-color: var(--yellow);
+    transform: translateY(-3px);
 }
 
 .feature-icon {
-    font-size: 25px;
-    margin-bottom: 8px;
+    font-size: 27px;
+    margin-bottom: 10px;
 }
 
 .feature h3 {
-    font-size: 14px;
+    font-size: 15px;
     margin-bottom: 5px;
 }
 
@@ -281,163 +180,159 @@ button {
 /* SECTION */
 
 .section {
-    padding: 20px 0 60px;
-}
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 25px;
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 25px;
 }
 
 .section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-title h2 {
     font-size: 27px;
     font-weight: 900;
 }
 
-.section-title span {
+.section-title h2 span {
     color: var(--yellow);
 }
 
-.section-subtitle {
-    color: var(--gray);
-    font-size: 13px;
-    margin-top: 5px;
+.section-title a {
+    color: var(--yellow);
+    font-size: 14px;
 }
 
-/* GAME CARDS */
+/* GAMES */
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
 
 .game-card {
     background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 18px;
+    border: 1px solid #292929;
+    border-radius: 17px;
     overflow: hidden;
-    transition: .35s;
+    transition: .3s;
 }
 
 .game-card:hover {
-    transform: translateY(-7px);
-    border-color: rgba(255,214,0,.6);
-    box-shadow: 0 10px 30px rgba(255,214,0,.07);
+    transform: translateY(-6px);
+    border-color: var(--yellow);
+    box-shadow: 0 10px 30px rgba(255, 214, 0, .08);
 }
 
 .game-image {
-    height: 250px;
+    height: 220px;
+    background: #101010;
     overflow: hidden;
-    background: #202020;
 }
 
 .game-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: .5s;
+    transition: .4s;
 }
 
 .game-card:hover .game-image img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 .game-info {
     padding: 17px;
 }
 
-.game-platform {
-    color: var(--gray);
-    font-size: 11px;
-    margin-bottom: 7px;
+.game-info h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
-.game-name {
-    font-size: 17px;
-    font-weight: 800;
+.game-info p {
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 15px;
 }
 
 .game-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 17px;
 }
 
-.game-price {
+.price {
     color: var(--yellow);
-    font-size: 19px;
-    font-weight: 900;
+    font-weight: 800;
+    font-size: 17px;
 }
 
-.add-cart {
-    border: none;
+.add-btn {
     background: var(--yellow);
     color: #000;
-    border-radius: 9px;
-    padding: 9px 12px;
-    font-weight: 900;
-    font-size: 12px;
-    transition: .3s;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-weight: 800;
+    transition: .2s;
 }
 
-.add-cart:hover {
+.add-btn:hover {
     background: white;
 }
 
-/* PLATFORM */
+/* PLATFORMS */
 
 .platforms {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-.platform-card {
-    background: linear-gradient(135deg,#191919,#0d0d0d);
-    border: 1px solid var(--border);
-    border-radius: 17px;
-    padding: 30px 20px;
+.platform {
+    background: linear-gradient(135deg, #171717, #0c0c0c);
+    border: 1px solid #292929;
+    border-radius: 15px;
+    padding: 35px 20px;
     text-align: center;
     transition: .3s;
 }
 
-.platform-card:hover {
+.platform:hover {
     border-color: var(--yellow);
-    transform: translateY(-5px);
+    transform: translateY(-4px);
 }
 
 .platform-icon {
-    font-size: 35px;
-    margin-bottom: 12px;
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
-.platform-card h3 {
-    font-size: 20px;
-    margin-bottom: 5px;
+.platform h3 {
+    font-size: 21px;
+    margin-bottom: 8px;
 }
 
-.platform-card p {
+.platform p {
     color: var(--gray);
-    font-size: 12px;
+    font-size: 13px;
 }
 
 /* PROMO */
 
 .promo {
-    margin: 10px 0 60px;
-    padding: 40px;
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 45px 25px;
+    background: linear-gradient(120deg, #ffd600, #ffb800);
     border-radius: 20px;
-    background: linear-gradient(110deg,#ffd600,#ffb700);
     color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    overflow: hidden;
+    text-align: center;
 }
 
 .promo h2 {
@@ -446,72 +341,131 @@ button {
 }
 
 .promo p {
-    margin-top: 8px;
-    font-size: 14px;
+    margin: 10px 0 20px;
 }
 
-.promo-btn {
-    display: inline-block;
-    background: black;
+.promo button {
+    background: #000;
     color: var(--yellow);
-    padding: 13px 22px;
+    border: none;
     border-radius: 10px;
-    font-weight: 900;
-    white-space: nowrap;
-    transition: .3s;
-}
-
-.promo-btn:hover {
-    background: white;
-    color: black;
+    padding: 12px 25px;
+    font-weight: 800;
 }
 
 /* FOOTER */
 
-.footer {
-    border-top: 1px solid var(--border);
-    background: #050505;
-    padding: 40px 0 20px;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 30px;
-}
-
-.footer-about p {
-    color: var(--gray);
-    font-size: 13px;
-    line-height: 2;
-    max-width: 350px;
-    margin-top: 12px;
-}
-
-.footer-column h3 {
-    margin-bottom: 15px;
-    font-size: 15px;
-}
-
-.footer-column a {
-    display: block;
-    color: var(--gray);
-    font-size: 13px;
-    margin-bottom: 10px;
-    transition: .3s;
-}
-
-.footer-column a:hover {
-    color: var(--yellow);
-}
-
-.footer-bottom {
-    border-top: 1px solid var(--border);
-    margin-top: 30px;
-    padding-top: 20px;
+footer {
+    background: #0c0c0c;
+    border-top: 1px solid #222;
+    padding: 35px 25px;
     text-align: center;
-    color: #777;
-    font-size: 12px;
+}
+
+.footer-logo {
+    font-size: 28px;
+    color: var(--yellow);
+    font-weight: 900;
+}
+
+footer p {
+    color: #888;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+/* SEARCH */
+
+.search-box {
+    display: none;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 25px 20px;
+}
+
+.search-box.active {
+    display: block;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #171717;
+    color: white;
+    outline: none;
+    font-family: inherit;
+}
+
+.search-box input:focus {
+    border-color: var(--yellow);
+}
+
+/* CART */
+
+.cart-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.8);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-popup.active {
+    display: flex;
+}
+
+.cart-content {
+    background: #161616;
+    border: 1px solid #333;
+    border-radius: 18px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.cart-content h2 {
+    margin-bottom: 20px;
+}
+
+.cart-items {
+    margin: 20px 0;
+    text-align: right;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+.cart-total {
+    color: var(--yellow);
+    font-size: 20px;
+    font-weight: 900;
+    margin: 20px 0;
+}
+
+.close-cart {
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.clear-cart {
+    background: #ff3333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-right: 10px;
 }
 
 /* TOAST */
@@ -519,16 +473,16 @@ button {
 .toast {
     position: fixed;
     bottom: 25px;
-    left: 25px;
+    right: 25px;
     background: var(--yellow);
     color: black;
-    padding: 14px 22px;
+    padding: 15px 22px;
     border-radius: 12px;
     font-weight: 800;
+    z-index: 1000;
     transform: translateY(100px);
     opacity: 0;
-    transition: .35s;
-    z-index: 9999;
+    transition: .3s;
 }
 
 .toast.show {
@@ -536,96 +490,42 @@ button {
     opacity: 1;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
     .games-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .features {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-links {
+        display: none;
     }
 }
 
-@media (max-width: 700px) {
-
-    .header-inner {
-        min-height: 65px;
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px;
     }
 
     .logo {
-        font-size: 27px;
-    }
-
-    .nav {
-        display: none;
-        position: absolute;
-        top: 65px;
-        right: 0;
-        left: 0;
-        background: #101010;
-        border-bottom: 1px solid var(--border);
-        padding: 20px;
-        flex-direction: column;
-        gap: 18px;
-    }
-
-    .nav.active {
-        display: flex;
-    }
-
-    .mobile-menu {
-        display: inline-block;
-    }
-
-    .header-actions {
-        gap: 6px;
-    }
-
-    .icon-btn {
-        padding: 9px 10px;
-        font-size: 12px;
+        font-size: 25px;
     }
 
     .hero {
-        padding-top: 20px;
+        margin: 15px auto;
+        padding: 0 15px;
     }
 
-    .hero-image {
-        border-radius: 15px;
+    .section {
+        padding: 0 15px;
+        margin: 40px auto;
     }
 
-    .hero-content {
-        right: 5%;
-        max-width: 65%;
-    }
-
-    .hero-content h1 {
-        font-size: 23px;
-    }
-
-    .hero-content p {
-        font-size: 11px;
-        margin-top: 8px;
-    }
-
-    .hero-btn {
-        padding: 9px 13px;
-        font-size: 12px;
-        margin-top: 12px;
-    }
-
-    .features {
-        gap: 10px;
-        margin: 20px 0 35px;
-    }
-
-    .feature {
-        padding: 15px 10px;
-    }
-
-    .section-title {
+    .section-title h2 {
         font-size: 22px;
     }
 
@@ -634,24 +534,15 @@ button {
     }
 
     .game-image {
-        height: 180px;
+        height: 160px;
     }
 
     .game-info {
         padding: 12px;
     }
 
-    .game-name {
-        font-size: 14px;
-    }
-
-    .game-price {
+    .game-info h3 {
         font-size: 15px;
-    }
-
-    .add-cart {
-        padding: 8px;
-        font-size: 10px;
     }
 
     .platforms {
@@ -659,31 +550,12 @@ button {
     }
 
     .promo {
-        padding: 25px;
-        flex-direction: column;
-        align-items: flex-start;
+        margin: 40px 15px;
+        padding: 30px 15px;
     }
 
     .promo h2 {
         font-size: 23px;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .footer-about {
-        grid-column: 1/-1;
-    }
-}
-
-@media (max-width: 400px) {
-    .games-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .game-image {
-        height: 240px;
     }
 }
 </style>
@@ -692,272 +564,208 @@ button {
 <body>
 
 <!-- HEADER -->
-<header class="header">
-    <div class="container header-inner">
+<header>
+    <nav class="navbar">
 
-        <a href="#" class="logo">FLASH<span>⚡</span></a>
+        <a href="#" class="logo">FLASH <span>⚡</span></a>
 
-        <nav class="nav" id="nav">
-            <a href="#">الرئيسية</a>
-            <a href="#games">الألعاب</a>
-            <a href="#platforms">المنصات</a>
-            <a href="#offers">العروض</a>
-        </nav>
+        <ul class="nav-links">
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#games">الألعاب</a></li>
+            <li><a href="#platforms">المنصات</a></li>
+            <li><a href="#offers">العروض</a></li>
+        </ul>
 
-        <div class="header-actions">
-            <button class="icon-btn" onclick="toggleSearch()">🔍</button>
-
-            <button class="icon-btn cart-btn" onclick="showCart()">
-                🛒
-                <span class="cart-count" id="cartCount">0</span>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="toggleSearch()">🔍</button>
+            <button class="cart-btn" onclick="openCart()">
+                🛒 <span id="cart-count">0</span>
             </button>
-
-            <button class="icon-btn mobile-menu" onclick="toggleMenu()">☰</button>
         </div>
 
-    </div>
+    </nav>
 
-    <div class="container">
-        <div class="search-box" id="searchBox">
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="ابحث عن لعبة..."
-                oninput="searchGames()"
-            >
-        </div>
+    <div class="search-box" id="searchBox">
+        <input type="text" id="searchInput" placeholder="ابحث عن لعبة..." oninput="searchGames()">
     </div>
 </header>
 
 <!-- HERO -->
-<section class="hero container">
-
+<section class="hero">
     <div class="hero-image">
-        <img src="images/andr.png" alt="FLASH Gaming">
-
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-            <h1>عالم الألعاب<br><span>بأسعار مميزة</span></h1>
-            <p>كل ألعابك المفضلة في مكان واحد ⚡</p>
-            <a href="#games" class="hero-btn">تسوق الآن</a>
-        </div>
+        <img src="andr.png" alt="FLASH - الألعاب">
     </div>
-
 </section>
 
 <!-- FEATURES -->
-<section class="container">
-    <div class="features">
+<section class="features">
 
-        <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <h3>توصيل سريع</h3>
-            <p>استلام طلبك بسرعة</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">🔒</div>
-            <h3>دفع آمن</h3>
-            <p>طرق دفع موثوقة</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">🎮</div>
-            <h3>ألعاب متنوعة</h3>
-            <p>أفضل الألعاب بين يديك</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">💬</div>
-            <h3>دعم مستمر</h3>
-            <p>نخدمك بكل اهتمام</p>
-        </div>
-
+    <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>توصيل سريع</h3>
+        <p>استلام طلبك بسرعة</p>
     </div>
+
+    <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>دفع آمن</h3>
+        <p>عملية شراء آمنة</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">🎮</div>
+        <h3>منتجات متنوعة</h3>
+        <p>أفضل الألعاب والخدمات</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">💎</div>
+        <h3>جودة عالية</h3>
+        <p>خدمات مميزة</p>
+    </div>
+
 </section>
 
 <!-- GAMES -->
-<section class="section container" id="games">
+<section class="section" id="games">
 
-    <div class="section-heading">
-        <div>
-            <h2 class="section-title">الألعاب <span>المميزة ⚡</span></h2>
-            <p class="section-subtitle">اختار لعبتك وابدأ المغامرة</p>
-        </div>
+    <div class="section-title">
+        <h2>أحدث <span>الألعاب</span> 🎮</h2>
+        <a href="#games">عرض الكل ←</a>
     </div>
 
-    <div class="games-grid" id="gamesGrid">
+    <div class="games-grid">
 
         <!-- CALL OF DUTY -->
-        <article class="game-card" data-name="call of duty كول اوف ديوتي">
-
+        <div class="game-card" data-name="call of duty كول اوف ديوتي">
             <div class="game-image">
-                <img src="images/call.png" alt="Call of Duty">
+                <img src="call.png" alt="Call of Duty">
             </div>
 
             <div class="game-info">
-                <p class="game-platform">PlayStation</p>
-                <h3 class="game-name">Call of Duty</h3>
+                <h3>Call of Duty</h3>
+                <p>كول أوف ديوتي</p>
 
                 <div class="game-bottom">
-                    <span class="game-price">299 ريال</span>
-                    <button class="add-cart" onclick="addToCart('Call of Duty',299)">
-                        أضف للسلة
-                    </button>
+                    <span class="price">99 ر.س</span>
+                    <button class="add-btn" onclick="addToCart('Call of Duty', 99)">أضف للسلة</button>
                 </div>
             </div>
-        </article>
+        </div>
 
         <!-- GTA -->
-        <article class="game-card" data-name="gta grand theft auto قراند">
-
+        <div class="game-card" data-name="gta جراند ثفت اوتو">
             <div class="game-image">
-                <img src="images/gta.png" alt="Grand Theft Auto">
+                <img src="gta.png" alt="GTA">
             </div>
 
             <div class="game-info">
-                <p class="game-platform">PlayStation</p>
-                <h3 class="game-name">Grand Theft Auto V</h3>
+                <h3>GTA</h3>
+                <p>جراند ثفت أوتو</p>
 
                 <div class="game-bottom">
-                    <span class="game-price">99 ريال</span>
-                    <button class="add-cart" onclick="addToCart('Grand Theft Auto V',99)">
-                        أضف للسلة
-                    </button>
+                    <span class="price">120 ر.س</span>
+                    <button class="add-btn" onclick="addToCart('GTA', 120)">أضف للسلة</button>
                 </div>
             </div>
-        </article>
+        </div>
 
         <!-- FC -->
-        <article class="game-card" data-name="fc ea sports fifa">
-
+        <div class="game-card" data-name="fc fifa كرة القدم">
             <div class="game-image">
-                <img src="images/fc.png" alt="EA Sports FC">
+                <img src="fc.png" alt="FC">
             </div>
 
             <div class="game-info">
-                <p class="game-platform">PlayStation</p>
-                <h3 class="game-name">EA SPORTS FC</h3>
+                <h3>EA SPORTS FC</h3>
+                <p>لعبة كرة القدم</p>
 
                 <div class="game-bottom">
-                    <span class="game-price">79 ريال</span>
-                    <button class="add-cart" onclick="addToCart('EA SPORTS FC',79)">
-                        أضف للسلة
-                    </button>
+                    <span class="price">150 ر.س</span>
+                    <button class="add-btn" onclick="addToCart('FC', 150)">أضف للسلة</button>
                 </div>
             </div>
-        </article>
+        </div>
 
         <!-- FORZA -->
-        <article class="game-card" data-name="forza horizon 5 فورزا">
-
+        <div class="game-card" data-name="forza فورزا">
             <div class="game-image">
-                <img src="images/forza.png" alt="Forza Horizon 5">
+                <img src="forza.png" alt="Forza">
             </div>
 
             <div class="game-info">
-                <p class="game-platform">Xbox / PC</p>
-                <h3 class="game-name">Forza Horizon 5</h3>
+                <h3>Forza</h3>
+                <p>عالم سباقات السيارات</p>
 
                 <div class="game-bottom">
-                    <span class="game-price">119 ريال</span>
-                    <button class="add-cart" onclick="addToCart('Forza Horizon 5',119)">
-                        أضف للسلة
-                    </button>
+                    <span class="price">110 ر.س</span>
+                    <button class="add-btn" onclick="addToCart('Forza', 110)">أضف للسلة</button>
+                </div>
             </div>
-        </article>
+        </div>
 
     </div>
 </section>
 
 <!-- PLATFORMS -->
-<section class="section container" id="platforms">
+<section class="section" id="platforms">
 
-    <div class="section-heading">
-        <div>
-            <h2 class="section-title">تصفح حسب <span>المنصة</span></h2>
-            <p class="section-subtitle">اختر منصتك المفضلة</p>
-        </div>
+    <div class="section-title">
+        <h2>اختر <span>منصتك</span></h2>
     </div>
 
     <div class="platforms">
 
-        <a href="#games" class="platform-card">
+        <div class="platform">
             <div class="platform-icon">🎮</div>
             <h3>PlayStation</h3>
-            <p>ألعاب بلايستيشن</p>
-        </a>
+            <p>ألعاب وخدمات بلايستيشن</p>
+        </div>
 
-        <a href="#games" class="platform-card">
+        <div class="platform">
             <div class="platform-icon">🟢</div>
             <h3>Xbox</h3>
-            <p>ألعاب إكس بوكس</p>
-        </a>
+            <p>ألعاب وخدمات إكس بوكس</p>
+        </div>
 
-        <a href="#games" class="platform-card">
+        <div class="platform">
             <div class="platform-icon">💻</div>
             <h3>PC</h3>
             <p>ألعاب الكمبيوتر</p>
-        </a>
+        </div>
 
     </div>
 </section>
 
-<!-- OFFER -->
-<section class="container" id="offers">
-
-    <div class="promo">
-        <div>
-            <h2>عروض FLASH ⚡</h2>
-            <p>جهز نفسك لأقوى تجربة ألعاب وبأسعار مميزة</p>
-        </div>
-
-        <a href="#games" class="promo-btn">اكتشف الألعاب</a>
-    </div>
-
+<!-- PROMO -->
+<section class="promo" id="offers">
+    <h2>FLASH ⚡ عروض لا تفوتك</h2>
+    <p>اكتشف الألعاب والخدمات بأفضل الأسعار</p>
+    <button onclick="scrollToGames()">تصفح الألعاب 🎮</button>
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer>
+    <div class="footer-logo">FLASH ⚡</div>
+    <p>متجر الألعاب والخدمات الرقمية</p>
+    <p>© 2026 FLASH - جميع الحقوق محفوظة</p>
+</footer>
 
-    <div class="container">
+<!-- CART -->
+<div class="cart-popup" id="cartPopup">
+    <div class="cart-content">
 
-        <div class="footer-content">
+        <h2>🛒 سلة المشتريات</h2>
 
-            <div class="footer-about">
-                <a href="#" class="logo">FLASH<span>⚡</span></a>
+        <div class="cart-items" id="cartItems"></div>
 
-                <p>
-                    متجر FLASH وجهتك للألعاب الرقمية.
-                    أفضل الألعاب، أسعار مميزة، وتجربة تسوق سهلة.
-                </p>
-            </div>
+        <div class="cart-total" id="cartTotal">المجموع: 0 ر.س</div>
 
-            <div class="footer-column">
-                <h3>روابط سريعة</h3>
-                <a href="#">الرئيسية</a>
-                <a href="#games">الألعاب</a>
-                <a href="#platforms">المنصات</a>
-                <a href="#offers">العروض</a>
-            </div>
-
-            <div class="footer-column">
-                <h3>خدمة العملاء</h3>
-                <a href="#">تواصل معنا</a>
-                <a href="#">سياسة الخصوصية</a>
-                <a href="#">الشروط والأحكام</a>
-            </div>
-
-        </div>
-
-        <div class="footer-bottom">
-            جميع الحقوق محفوظة © FLASH 2026 ⚡
-        </div>
+        <button class="close-cart" onclick="closeCart()">إغلاق</button>
+        <button class="clear-cart" onclick="clearCart()">إفراغ السلة</button>
 
     </div>
-
-</footer>
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -968,7 +776,7 @@ button {
 let cart = [];
 
 try {
-    const savedCart = localStorage.getItem("flashCart");
+    const savedCart = localStorage.getItem("FLASH_cart");
     cart = savedCart ? JSON.parse(savedCart) : [];
 
     if (!Array.isArray(cart)) {
@@ -978,69 +786,90 @@ try {
     cart = [];
 }
 
-updateCartCount();
-
 function saveCart() {
-    try {
-        localStorage.setItem("flashCart", JSON.stringify(cart));
-    } catch (error) {
-        console.error("تعذر حفظ السلة:", error);
-    }
+    localStorage.setItem("FLASH_cart", JSON.stringify(cart));
+    updateCartCount();
 }
 
 function addToCart(name, price) {
 
-    cart.push({
-        name: name,
-        price: price
-    });
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            quantity: 1
+        });
+    }
 
     saveCart();
-    updateCartCount();
-
     showToast("تمت إضافة " + name + " للسلة ⚡");
 }
 
 function updateCartCount() {
-    document.getElementById("cartCount").textContent = cart.length;
+
+    const count = cart.reduce((total, item) => {
+        return total + item.quantity;
+    }, 0);
+
+    document.getElementById("cart-count").textContent = count;
 }
 
-function showCart() {
+function openCart() {
+    renderCart();
+    document.getElementById("cartPopup").classList.add("active");
+}
+
+function closeCart() {
+    document.getElementById("cartPopup").classList.remove("active");
+}
+
+function renderCart() {
+
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+
+    cartItems.innerHTML = "";
 
     if (cart.length === 0) {
-        alert("السلة فارغة 🛒");
+        cartItems.innerHTML = "<p>السلة فارغة 🛒</p>";
+        cartTotal.textContent = "المجموع: 0 ر.س";
         return;
     }
 
-    let total = cart.reduce((sum, item) => sum + Number(item.price || 0), 0);
+    let total = 0;
 
-    let message = "محتويات سلتك:\\n\\n";
+    cart.forEach(item => {
 
-    cart.forEach((item, index) => {
-        message += (index + 1) + "- " + item.name + " — " + item.price + " ريال\\n";
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+
+        const name = document.createElement("span");
+        name.textContent = item.name + " × " + item.quantity;
+
+        const price = document.createElement("span");
+        price.textContent = itemTotal + " ر.س";
+
+        div.appendChild(name);
+        div.appendChild(price);
+
+        cartItems.appendChild(div);
     });
 
-    message += "\\nالإجمالي: " + total + " ريال";
-
-    alert(message);
+    cartTotal.textContent = "المجموع: " + total + " ر.س";
 }
 
-/* TOAST */
-
-let toastTimer;
-
-function showToast(message) {
-
-    const toast = document.getElementById("toast");
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2500);
+function clearCart() {
+    cart = [];
+    saveCart();
+    renderCart();
+    showToast("تم إفراغ السلة");
 }
 
 /* SEARCH */
@@ -1055,38 +884,56 @@ function toggleSearch() {
 
 function searchGames() {
 
-    const searchValue = document.getElementById("searchInput").value
-        .trim()
-        .toLowerCase();
-
+    const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
     const cards = document.querySelectorAll(".game-card");
 
     cards.forEach(card => {
 
-        const name = (card.dataset.name || "").toLowerCase();
+        const name = card.dataset.name.toLowerCase();
 
-        card.style.display = name.includes(searchValue) ? "" : "none";
+        if (name.includes(searchValue)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
     });
 }
 
-/* MOBILE MENU */
+/* TOAST */
 
-function toggleMenu() {
-    document.getElementById("nav").classList.toggle("active");
+function showToast(message) {
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
 }
 
-/* CLOSE MENU AFTER CLICK */
+/* NAVIGATION */
 
-document.querySelectorAll(".nav a").forEach(link => {
-
-    link.addEventListener("click", () => {
-        document.getElementById("nav").classList.remove("active");
+function scrollToGames() {
+    document.getElementById("games").scrollIntoView({
+        behavior: "smooth"
     });
+}
 
+/* INITIALIZE */
+
+updateCartCount();
+
+/* CLOSE CART WHEN CLICKING OUTSIDE */
+
+document.getElementById("cartPopup").addEventListener("click", function(event) {
+    if (event.target === this) {
+        closeCart();
+    }
 });
 
 </script>
 
 </body>
 </html>
-```
