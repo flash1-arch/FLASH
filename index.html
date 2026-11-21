@@ -30,6 +30,7 @@ body {
     color: var(--white);
     font-family: 'Cairo', sans-serif;
     overflow-x: hidden;
+    min-width: 320px;
 }
 
 a {
@@ -220,6 +221,7 @@ header {
     border-radius: 17px;
     overflow: hidden;
     transition: .3s;
+    min-width: 0;
 }
 
 .game-card:hover {
@@ -282,8 +284,11 @@ header {
     transition: .2s;
 }
 
-.add-btn:hover {
+.add-btn:hover,
+.add-btn:focus-visible {
     background: white;
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
 }
 
 /* PLATFORMS */
@@ -425,6 +430,8 @@ footer p {
     padding: 30px;
     width: 90%;
     max-width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
     text-align: center;
 }
 
@@ -577,8 +584,9 @@ footer p {
         </ul>
 
         <div class="nav-buttons">
-            <button class="nav-btn" onclick="toggleSearch()">🔍</button>
-            <button class="cart-btn" onclick="openCart()">
+            <button class="nav-btn" type="button" aria-label="بحث عن لعبة" onclick="toggleSearch()">🔍</button>
+
+            <button class="cart-btn" type="button" aria-label="فتح سلة المشتريات" onclick="openCart()">
                 🛒 <span id="cart-count">0</span>
             </button>
         </div>
@@ -593,7 +601,7 @@ footer p {
 <!-- HERO -->
 <section class="hero">
     <div class="hero-image">
-        <img src="andr.png" alt="FLASH - الألعاب">
+        <img src="./andr.png" alt="FLASH - الألعاب" fetchpriority="high">
     </div>
 </section>
 
@@ -639,7 +647,7 @@ footer p {
         <!-- CALL OF DUTY -->
         <div class="game-card" data-name="call of duty كول اوف ديوتي">
             <div class="game-image">
-                <img src="call.png" alt="Call of Duty">
+                <img src="./call.png" alt="Call of Duty" loading="lazy">
             </div>
 
             <div class="game-info">
@@ -656,7 +664,7 @@ footer p {
         <!-- GTA -->
         <div class="game-card" data-name="gta جراند ثفت اوتو">
             <div class="game-image">
-                <img src="gta.png" alt="GTA">
+                <img src="./gta.png" alt="GTA" loading="lazy">
             </div>
 
             <div class="game-info">
@@ -673,7 +681,7 @@ footer p {
         <!-- FC -->
         <div class="game-card" data-name="fc fifa كرة القدم">
             <div class="game-image">
-                <img src="fc.png" alt="FC">
+                <img src="./fc.png" alt="FC" loading="lazy">
             </div>
 
             <div class="game-info">
@@ -690,7 +698,7 @@ footer p {
         <!-- FORZA -->
         <div class="game-card" data-name="forza فورزا">
             <div class="game-image">
-                <img src="forza.png" alt="Forza">
+                <img src="./forza.png" alt="Forza" loading="lazy">
             </div>
 
             <div class="game-info">
@@ -761,8 +769,8 @@ footer p {
 
         <div class="cart-total" id="cartTotal">المجموع: 0 ر.س</div>
 
-        <button class="close-cart" onclick="closeCart()">إغلاق</button>
-        <button class="clear-cart" onclick="clearCart()">إفراغ السلة</button>
+        <button class="close-cart" type="button" onclick="closeCart()">إغلاق</button>
+        <button class="clear-cart" type="button" onclick="clearCart()">إفراغ السلة</button>
 
     </div>
 </div>
@@ -770,169 +778,184 @@ footer p {
 <div class="toast" id="toast"></div>
 
 <script>
+'use strict';
 
-/* CART */
-
+/* CART: validates stored data and safely handles storage errors */
+const CART_STORAGE_KEY = 'FLASH_cart';
+const PRODUCTS = {
+    'Call of Duty': 99,
+    'GTA': 120,
+    'FC': 150,
+    'Forza': 110
+};
 let cart = [];
 
-try {
-    const savedCart = localStorage.getItem("FLASH_cart");
-    cart = savedCart ? JSON.parse(savedCart) : [];
+function normalizeCart(raw) {
+    if (!Array.isArray(raw)) return [];
+    return raw.filter(item => item && typeof item.name === 'string' &&
+        Object.prototype.hasOwnProperty.call(PRODUCTS, item.name))
+        .map(item => ({
+            name: item.name,
+            price: PRODUCTS[item.name],
+            quantity: Math.max(1, Math.min(99, Math.floor(Number(item.quantity) || 1)))
+        }));
+}
 
-    if (!Array.isArray(cart)) {
-        cart = [];
-    }
+try {
+    const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+    cart = normalizeCart(savedCart ? JSON.parse(savedCart) : []);
 } catch (error) {
+    console.warn('تعذر قراءة السلة المحفوظة:', error);
     cart = [];
 }
 
+
 function saveCart() {
-    localStorage.setItem("FLASH_cart", JSON.stringify(cart));
+    try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (error) {
+        console.warn('تعذر حفظ السلة في المتصفح:', error);
+        showToast('تعذر حفظ السلة على هذا الجهاز');
+    }
     updateCartCount();
 }
 
+
 function addToCart(name, price) {
-
-    const existingItem = cart.find(item => item.name === name);
-
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({
-            name: name,
-            price: price,
-            quantity: 1
-        });
+    if (!Object.prototype.hasOwnProperty.call(PRODUCTS, name)) {
+        showToast('المنتج غير متوفر');
+        return;
     }
-
+    const verifiedPrice = PRODUCTS[name];
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.quantity = Math.min(99, existingItem.quantity + 1);
+    } else {
+        cart.push({ name, price: verifiedPrice, quantity: 1 });
+    }
     saveCart();
-    showToast("تمت إضافة " + name + " للسلة ⚡");
+    renderCart();
+    showToast('تمت إضافة ' + name + ' للسلة ⚡');
 }
 
 function updateCartCount() {
-
-    const count = cart.reduce((total, item) => {
-        return total + item.quantity;
-    }, 0);
-
-    document.getElementById("cart-count").textContent = count;
+    const countElement = document.getElementById('cart-count');
+    if (!countElement) return;
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    countElement.textContent = count;
 }
+
 
 function openCart() {
     renderCart();
-    document.getElementById("cartPopup").classList.add("active");
+    const popup = document.getElementById('cartPopup');
+    if (popup) popup.classList.add('active');
 }
 
 function closeCart() {
-    document.getElementById("cartPopup").classList.remove("active");
+    const popup = document.getElementById('cartPopup');
+    if (popup) popup.classList.remove('active');
 }
 
+
 function renderCart() {
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    if (!cartItems || !cartTotal) return;
 
-    const cartItems = document.getElementById("cartItems");
-    const cartTotal = document.getElementById("cartTotal");
-
-    cartItems.innerHTML = "";
-
+    cartItems.replaceChildren();
     if (cart.length === 0) {
-        cartItems.innerHTML = "<p>السلة فارغة 🛒</p>";
-        cartTotal.textContent = "المجموع: 0 ر.س";
+        const empty = document.createElement('p');
+        empty.textContent = 'السلة فارغة 🛒';
+        cartItems.appendChild(empty);
+        cartTotal.textContent = 'المجموع: 0 ر.س';
         return;
     }
 
     let total = 0;
-
     cart.forEach(item => {
-
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
 
-        const div = document.createElement("div");
-        div.className = "cart-item";
-
-        const name = document.createElement("span");
-        name.textContent = item.name + " × " + item.quantity;
-
-        const price = document.createElement("span");
-        price.textContent = itemTotal + " ر.س";
-
-        div.appendChild(name);
-        div.appendChild(price);
-
-        cartItems.appendChild(div);
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        const name = document.createElement('span');
+        name.textContent = `${item.name} × ${item.quantity}`;
+        const price = document.createElement('span');
+        price.textContent = `${itemTotal.toLocaleString('ar-SA')} ر.س`;
+        row.append(name, price);
+        cartItems.appendChild(row);
     });
-
-    cartTotal.textContent = "المجموع: " + total + " ر.س";
+    cartTotal.textContent = `المجموع: ${total.toLocaleString('ar-SA')} ر.س`;
 }
+
 
 function clearCart() {
     cart = [];
     saveCart();
     renderCart();
-    showToast("تم إفراغ السلة");
+    showToast('تم إفراغ السلة');
 }
 
+
 /* SEARCH */
-
 function toggleSearch() {
-    document.getElementById("searchBox").classList.toggle("active");
-
-    if (document.getElementById("searchBox").classList.contains("active")) {
-        document.getElementById("searchInput").focus();
+    const searchBox = document.getElementById('searchBox');
+    const searchInput = document.getElementById('searchInput');
+    if (!searchBox) return;
+    searchBox.classList.toggle('active');
+    if (searchBox.classList.contains('active') && searchInput) searchInput.focus();
+    if (!searchBox.classList.contains('active') && searchInput) {
+        searchInput.value = '';
+        searchGames();
     }
 }
 
 function searchGames() {
-
-    const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
-    const cards = document.querySelectorAll(".game-card");
-
-    cards.forEach(card => {
-
-        const name = card.dataset.name.toLowerCase();
-
-        if (name.includes(searchValue)) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
+    const input = document.getElementById('searchInput');
+    if (!input) return;
+    const searchValue = input.value.trim().toLocaleLowerCase('ar');
+    document.querySelectorAll('.game-card').forEach(card => {
+        const name = (card.dataset.name || card.textContent || '').toLocaleLowerCase('ar');
+        card.style.display = name.includes(searchValue) ? '' : 'none';
     });
 }
+
 
 /* TOAST */
-
+let toastTimer;
 function showToast(message) {
-
-    const toast = document.getElementById("toast");
-
+    const toast = document.getElementById('toast');
+    if (!toast) return;
     toast.textContent = message;
-    toast.classList.add("show");
-
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2500);
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
 }
+
 
 /* NAVIGATION */
-
 function scrollToGames() {
-    document.getElementById("games").scrollIntoView({
-        behavior: "smooth"
-    });
+    const games = document.getElementById('games');
+    if (games) games.scrollIntoView({ behavior: 'smooth' });
 }
 
+
 /* INITIALIZE */
-
 updateCartCount();
+renderCart();
 
-/* CLOSE CART WHEN CLICKING OUTSIDE */
 
-document.getElementById("cartPopup").addEventListener("click", function(event) {
-    if (event.target === this) {
-        closeCart();
-    }
+/* Close cart by clicking outside the dialog or pressing Escape */
+const cartPopup = document.getElementById('cartPopup');
+if (cartPopup) {
+    cartPopup.addEventListener('click', event => {
+        if (event.target === cartPopup) closeCart();
+    });
+}
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeCart();
 });
-
 </script>
 
 </body>
